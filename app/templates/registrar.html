@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Criar conta</title>
+    <link rel="shortcut icon" href="{{url_for('static', filename='img/workes.ico')}}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container-login">
+    <div class="logo-login">
+        <img src="{{ url_for('static', filename='img/workes.png') }}" width="60" height="60">
+    </div>
+
+    <div class="titulo-login">
+        <h2>Criar conta</h2>
+        <p>Preencha seus dados abaixo:</p>
+    </div>
+
+    <form method="POST">
+        <div class="email">
+            <label for="email">E-mail</label>
+            <input type="email" name="email" id="email" placeholder="Digite seu e-mail" required>
+        </div>
+
+        <div class="senha">
+            <label for="senha">Senha</label>
+            <input type="password" name="senha" id="senha" placeholder="Digite sua senha" required>
+        </div>
+
+        {% if erro %}
+        <p style="color:red; text-align:center; margin-top:10px;">{{ erro }}</p>
+        {% endif %}
+
+        <div class="botao">
+            <input type="submit" value="Criar conta" id="botao">
+        </div>
+    </form>
+
+    <p style="margin-bottom:20px;">
+        Já possui uma conta?
+        <a href="{{ url_for('login') }}">Entrar</a>
+    </p>
+</div>
+
+</body>
+</html>

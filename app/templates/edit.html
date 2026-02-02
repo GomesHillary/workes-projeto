@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Serviço</title>
+    <link rel="shortcut icon" href="{{url_for('static', filename='img/workes.ico')}}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-content">
+        <h2 style="color: white;">Editar Serviço</h2>
+        <a href="{{ url_for('logout') }}" style="color: white; text-decoration: none;">Logout</a>
+    </div>
+</header>
+
+<div class="results-container">
+
+    <div class="result-item" style="padding: 2rem;">
+        <h2>Editar Serviço</h2>
+        <form method="POST">
+
+            <label for="nome">Nome do serviço:</label>
+            <input
+                type="text"
+                name="nome"
+                id="nome"
+                value="{{ servico.nome }}"
+                style="width: 100%; padding: 0.8rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 8px;"
+                required
+            >
+
+            <label for="local">Local:</label>
+            <input
+                type="text"
+                name="local"
+                id="local"
+                value="{{ servico.local }}"
+                style="width: 100%; padding: 0.8rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 8px;"
+                required
+            >
+
+            <label for="descricao">Descrição:</label>
+            <textarea
+                name="descricao"
+                id="descricao"
+                rows="5"
+                style="width: 100%; padding: 0.8rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 8px;"
+                required>{{ servico.descricao }}</textarea>
+
+            <button
+                type="submit"
+                style="background-color: var(--accent-orange); color: white; padding: 0.8rem 2rem; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem;">
+                Salvar Alterações
+            </button>
+
+        </form>
+    </div>
+
+</div>
+
+<footer class="site-footer">
+    <p>&copy; 2025 - Seu Site</p>
+</footer>
+
+</body>
+</html>
