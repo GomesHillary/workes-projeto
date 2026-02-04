@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, login_required, logout_user, UserMixin, current_user
 from flask_bcrypt import Bcrypt
 
+
 app = Flask(__name__)
 
 app.config["SECRET_KEY"] = "secret"
@@ -83,7 +84,7 @@ def login():
 
         if user and bcrypt.check_password_hash(user.senha, senha):
             login_user(user)
-            return redirect(url_for("index"))
+            return redirect(url_for("dashboard"))
         else:
             return render_template("login.html", erro="Email ou senha incorretos")
 
@@ -95,9 +96,9 @@ def logout():
     logout_user()
     return redirect(url_for("index"))
 
-@app.route("/cadastro-prestador", methods=["GET", "POST"])
+@app.route("/cadastro-servicos", methods=["GET", "POST"])
 @login_required
-def cadastro_prestador():
+def cadastro_servicos():
     if request.method == "POST":
         nome = request.form["nome"]
         local = request.form["local"]
@@ -115,9 +116,9 @@ def cadastro_prestador():
 
         db.session.add(novo)
         db.session.commit()
-        return render_template("cadastro_prestador.html", sucesso="Serviço cadastrado!")
+        return render_template("cadastro-servicos.html", sucesso="Serviço cadastrado!")
 
-    return render_template("cadastro_prestador.html")
+    return render_template("cadastro-servicos.html")
 
 @app.route("/editar/<int:id>", methods=["GET", "POST"])
 @login_required
@@ -138,6 +139,11 @@ def editar_servico(id):
 @app.route("/")
 def index():
     return render_template("index.html")
+
+@app.route("/dashboard")
+@login_required
+def dashboard():
+    return render_template("dashboard.html")
 
 @app.route("/inicio")
 def inicio():
