@@ -3,7 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, login_required, logout_user, UserMixin, current_user
 from flask_bcrypt import Bcrypt
 
-
 app = Flask(__name__)
 
 app.config["SECRET_KEY"] = "secret"
@@ -23,6 +22,7 @@ class Usuario(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     senha = db.Column(db.String(120), nullable=False)
+
 
 class Servico(db.Model):
     __tablename__ = "servicos"
@@ -48,6 +48,7 @@ class Servico(db.Model):
 @login_manager.user_loader
 def load_user(user_id):
     return Usuario.query.get(int(user_id))
+
 
 @app.before_request
 def criar_banco():
@@ -90,11 +91,13 @@ def login():
 
     return render_template("login.html")
 
+
 @app.route("/logout")
 @login_required
 def logout():
     logout_user()
     return redirect(url_for("index"))
+
 
 @app.route("/cadastro-servicos", methods=["GET", "POST"])
 @login_required
@@ -120,6 +123,7 @@ def cadastro_servicos():
 
     return render_template("cadastro-servicos.html")
 
+
 @app.route("/editar/<int:id>", methods=["GET", "POST"])
 @login_required
 def editar_servico(id):
@@ -140,14 +144,17 @@ def editar_servico(id):
 def index():
     return render_template("index.html")
 
+
 @app.route("/dashboard")
 @login_required
 def dashboard():
     return render_template("dashboard.html")
 
+
 @app.route("/inicio")
 def inicio():
     return render_template("index.html")
+
 
 @app.route("/buscar", methods=["POST"])
 def buscar():
@@ -163,6 +170,7 @@ def buscar():
         "logado": current_user.is_authenticated,
         "servicos": [s.to_dict() for s in resultados]
     })
+
 
 @app.route("/sobre")
 def sobre():
@@ -188,6 +196,13 @@ def add():
     return jsonify({"status": "ok", "mensagem": "Serviço cadastrado"})
 
 
+@app.route("/prestador/<int:id>", methods=["GET"])
+def prestador(id):
+    try:
+        resposta = Usuario.query.get_or_404(id)
+    except:
+        resposta = "not found"
+    return render_template("prestador.html", usuario=resposta)
 
 if __name__ == "__main__":
     app.run(debug=True)
