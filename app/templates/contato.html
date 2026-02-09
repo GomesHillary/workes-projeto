@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contate - nos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/contato.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <header class="header">
+        <h1>Quer entrar em contato?</h1>
+         <a  href="{{ url_for("index") }}" class="btn-back">
+            <i data-lucide="arrow-left" style="width: 18px;"></i>
+            Página Principal
+        </a>
+    </header>
+
+    <main class="contact-container">
+
+        <div class="contact-card">
+            <div class="icon-wrapper">
+                <i data-lucide="mail"></i>
+            </div>
+            <h3>E-mail</h3>
+            <p>Tem alguma dúvida? Nossa equipe está pronta para ajudar.</p>
+            <a href="mailto:workes@gmail.com" class="contact-info">workes@gmail.com</a>
+        </div>
+
+        <div class="contact-card">
+            <div class="icon-wrapper">
+                <i data-lucide="phone"></i>
+            </div>
+            <h3>Telefone</h3>
+            <p>Você pode ligar a qualquer hora em dias úteis.</p>
+            <span class="contact-info">0000 9999 00</span>
+        </div>
+
+        <div class="contact-card">
+            <div class="icon-wrapper">
+                <i data-lucide="message-square"></i>
+            </div>
+            <h3>Chat</h3>
+            <p>Precisa de ajuda rápida? Inicie uma conversa agora.</p>
+            <a href="#" target="_blank" class="contact-info link">envia.chat</a>
+        </div>
+
+    </main>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
