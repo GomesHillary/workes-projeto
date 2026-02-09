@@ -168,6 +168,10 @@ def buscar():
 def sobre():
     return render_template("sobre.html")
 
+@app.route("/contato")
+def contato():
+    return render_template("contato.html")
+
 @app.route("/add", methods=["POST"])
 def add():
     data = request.json
