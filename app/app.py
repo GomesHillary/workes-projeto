@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, login_required, logout_user, UserMixin, current_user
 from flask_bcrypt import Bcrypt
+from sqlalchemy import ForeignKey
 
 app = Flask(__name__)
 
@@ -22,6 +23,9 @@ class Usuario(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     senha = db.Column(db.String(120), nullable=False)
+    nome = db.Column(db.String(100), nullable=False)
+    descricao = db.Column(db.Text, nullable=False)
+    telefone = db.Column(db.String(20))
 
 
 class Servico(db.Model):
@@ -33,6 +37,7 @@ class Servico(db.Model):
     descricao = db.Column(db.Text, nullable=False)
     telefone = db.Column(db.String(20))
     link = db.Column(db.String(255))
+    usuario_id = db.Column(db.Integer, ForeignKey("usuarios.id"), nullable=False)
 
     def to_dict(self):
         return {
@@ -108,13 +113,15 @@ def cadastro_servicos():
         descricao = request.form["descricao"]
         telefone = request.form.get("telefone")
         link = request.form.get("link")
+        usuario_id = current_user.id
 
         novo = Servico(
             nome=nome,
             local=local,
             descricao=descricao,
             telefone=telefone,
-            link=link
+            link=link,
+            usuario_id=usuario_id
         )
 
         db.session.add(novo)
